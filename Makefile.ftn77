@@ -4,18 +4,33 @@ CF=ftn77
 LF=slink
 FFLAGS=/ERROR_NUMBERS
 RM=DEL /Y /Q
-TARGETS= fintern.exe
+TARGETS= fint.exe
 
 all: $(TARGETS)
 
-fintern.obj: fintern.f
+fint.obj: fint.f
 	$(CF) $(FFLAGS) $<
 
-fintern.exe: fintern.obj
-	$(LF) $<
+fint.exe: fint.obj find_by_id.obj  init_mem.obj  load_rec.obj  print_mem.obj  store_rec.obj
+	$(LF) $^ /OUT:$@
 
+find_by_id.obj: find_by_id.f
+	$(CF) $<
+
+init_mem.obj: init_mem.f
+	$(CF) $<
+
+load_rec.obj: load_rec.f
+	$(CF) $<
+
+print_mem.obj: print_mem.f
+	$(CF) $<
+
+store_rec.obj: store_rec.f
+	$(CF) $<
 
 clean:
-	cmd /C "$(RM)  fintern.obj fintern.exe"
+	cmd /C "$(RM)  fint.obj find_by_id.obj  init_mem.obj  load_rec.obj  print_mem.obj  store_rec.obj fint.exe"
 #	cmd /C "$(RM) sum1.obj sumf.obj inpdat.obj *.lis"
 cleanall: clean
+#
